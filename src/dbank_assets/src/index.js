@@ -9,28 +9,37 @@ document.querySelector("form").addEventListener("submit", async function(event) 
   //prevent the form from reload
   event.preventDefault();
   // console.log("Submitted.");
+
   //button
   const button = event.target.querySelector("#submit-btn");
+  //input
+  const inputAmount = parseFloat(document.getElementById("input-amount").value);
+  const withdrawAmount = parseFloat(document.getElementById("withdrawal-amount").value);
 
-  //call topUp functiom
-    const inputAmount = parseFloat(document.getElementById("input-amount").value);
-    console.log('topup amount:', inputAmount, typeof inputAmount);
     //while calling the function, makes the button disable
     button.setAttribute("disabled",true);
 
-    //only top up the amount when there's a value in the input
+    //only top up/ withdraw the amount when there's a value in the input
     //if it's nan then the length of that value will be 0
     if (document.getElementById("input-amount").value.length !== 0){
       await dbank.topUp(inputAmount);
     }
+    if (document.getElementById("withdrawal-amount").value.length !== 0){
+      await dbank.withdraw(withdrawAmount);
+    }
+    
+    //add the interest
+    await dbank.compound()
     
     //when the function is done, 
     //update the balance
     await updateBalance()
+
     //reset the input to an empty input
     document.getElementById("input-amount").value=""
+    document.getElementById("withdrawal-amount").value=""
     //remove disabled button
-    console.log('topup done');
+    console.log('transaction completed');
     button.removeAttribute("disabled");
 });
 
