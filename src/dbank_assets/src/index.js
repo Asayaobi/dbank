@@ -21,6 +21,8 @@ document.querySelector("form").addEventListener("submit", async function(event) 
     //when the function is done, 
     //update the balance
     await updateBalance()
+    //reset the input to an empty input
+    document.getElementById("input-amount").value=""
     //remove disabled button
     console.log('topup done');
     button.removeAttribute("disabled");
