@@ -2,10 +2,7 @@ import { dbank } from "../../declarations/dbank";
 
 window.addEventListener("load", async function() {
   // console.log("Finished loading");
-  const currentAmount = await dbank.checkBalance();
-  // round the amount to 2 digits
-  const roundAmount = Math.round(currentAmount * 100) / 100
-  document.getElementById("value").innerText = roundAmount;
+  await updateBalance()
 });
 
 document.querySelector("form").addEventListener("submit", async function(event) {
