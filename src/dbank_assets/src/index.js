@@ -12,11 +12,17 @@ document.querySelector("form").addEventListener("submit", async function(event) 
   event.preventDefault();
   // console.log("Submitted.");
 
-  //topUp functiom
+  //button
+  const button = event.target.querySelector("#submit-btn");
+
+  //call topUp functiom
     const inputAmount = parseFloat(document.getElementById("input-amount").value);
     console.log('topup amount:', inputAmount, typeof inputAmount);
-
+    //while calling the function, makes the button disable
+    button.setAttribute("disabled",true);
     await dbank.topUp(inputAmount);
+    //when the function is done, remove disabled button
     console.log('topup done');
+    button.removeAttribute("disabled");
 });
 
