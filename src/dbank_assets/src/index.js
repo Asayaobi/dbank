@@ -6,9 +6,9 @@ window.addEventListener("load", async function() {
 });
 
 document.querySelector("form").addEventListener("submit", async function(event) {
+  //prevent the form from reload
   event.preventDefault();
   // console.log("Submitted.");
-
   //button
   const button = event.target.querySelector("#submit-btn");
 
@@ -17,7 +17,13 @@ document.querySelector("form").addEventListener("submit", async function(event) 
     console.log('topup amount:', inputAmount, typeof inputAmount);
     //while calling the function, makes the button disable
     button.setAttribute("disabled",true);
-    await dbank.topUp(inputAmount);
+
+    //only top up the amount when there's a value in the input
+    //if it's nan then the length of that value will be 0
+    if (document.getElementById("input-amount").value.length !== 0){
+      await dbank.topUp(inputAmount);
+    }
+    
     //when the function is done, 
     //update the balance
     await updateBalance()
